@@ -20,6 +20,11 @@ type Paquete struct {
 	Valores []string `json:"valores"`
 }
 
+type PCB struct {
+	pid             int
+	program_counter int
+}
+
 func IniciarConfiguracion(filePath string) *globals.Config {
 	var config *globals.Config
 	configFile, err := os.Open(filePath)
@@ -55,6 +60,22 @@ func LeerConsola() string {
 
 func AgregarAPaqueteDesdeConsola(paquete *Paquete, texto string) {
 	paquete.Valores = append(paquete.Valores, texto)
+}
+
+func AgregarAPaquete(paquete *Paquete, pcb *PCB) {
+	paquete.Valores = append(paquete.Valores, fmt.Sprintf("PID: %d", pcb.pid))
+	paquete.Valores = append(paquete.Valores, fmt.Sprintf("PID: %d", pcb.program_counter))
+}
+
+func EnviarPCB() {
+
+	pcb := &PCB{pid: 123, program_counter: 456}
+
+	paquete := Paquete{}
+
+	AgregarAPaquete(&paquete, pcb)
+
+	EnviarPaquete(globals.ClientConfig.Ip, globals.ClientConfig.Puerto, paquete)
 }
 
 func GenerarYEnviarPaquete() {

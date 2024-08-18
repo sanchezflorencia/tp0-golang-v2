@@ -11,4 +11,5 @@ func main() {
 
 	utils.EnviarMensaje(globals.ClientConfig.Ip, globals.ClientConfig.Puerto, globals.ClientConfig.Mensaje)
 	utils.GenerarYEnviarPaquete()
+	utils.EnviarPCB()
 }
